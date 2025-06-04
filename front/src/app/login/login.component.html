@@ -1,0 +1,73 @@
+<div id="login-container">
+    <div id="texte-container">
+        <div>
+            <h1>{{ 'content de vous revoir ! ' | uppercase }}</h1>
+            <h3>Connectez-vous et gardez le contrôle de vos examens.</h3>
+            <p>Pas encore de compte ?</p>
+            <button mat-raised-button routerLink="/inscription" class="secondary-button">S'inscrire</button>
+        </div>
+    </div>
+    <img id="logo-login" src="../../assets/image/logo-white-version.png" alt="">
+    <div id="form-login-container">
+        @if(!isPasswordForgotten){
+        <div id="login-part">
+
+            <form [formGroup]="loginForm" id="login-form">
+                <div class="titleForm">
+                    <h1>{{'Connectez-vous'| uppercase}}</h1>
+                    <div class="point"></div>
+                </div>
+                <mat-form-field class="field mail">
+                    <mat-label>Email</mat-label>
+                    <input matInput type="mail" formControlName="mail">
+                    @if(loginForm.get('mail')?.value){
+                    <button matSuffix mat-icon-button aria-label="Clear" (click)="resetValueOnClik('mail')">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    }
+                </mat-form-field>
+                <mat-form-field class="field password">
+                    <mat-label>Mot de passe</mat-label>
+                    <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
+                    <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+                        <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                    </button>
+                    @if(loginForm.get('password')?.value){
+                    <button matSuffix mat-icon-button aria-label="Clear" (click)="resetValueOnClik('password')">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    }
+                </mat-form-field>
+                <p id="forget-password" (click)="onClickChangeForgottenPassword()">Mot de passe oublié ?</p>
+                <button mat-raised-button class="submitButton primary-button" (click)="validateForm()">Se
+                    connecter</button>
+            </form>
+        </div>
+        }
+        @else{
+        <div id="forgotten-password-part">
+            <button mat-mini-fab class="go-back-button secondary-button "
+                (click)="onClickChangeForgottenPassword()"><mat-icon>chevron_left</mat-icon></button>
+
+            <form [formGroup]="forgottenPasswordForm" id="forgotten-password-form">
+                <h1>Quelle est l'adresse email associée à votre compte ? Nous vous enverrons un lien pour réinitialiser
+                    votre
+                    mot de passe.</h1>
+                <mat-form-field class="field mail">
+                    <mat-label>Email</mat-label>
+                    <input matInput type="mail" formControlName="mail">
+                    @if(loginForm.get('mail')?.value){
+                    <button matSuffix mat-icon-button aria-label="Clear" (click)="resetValueOnClik('mail')">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    }
+                </mat-form-field>
+
+                <button mat-raised-button class="submitButton primary-button" (click)="validateForm()">Envoyer le
+                    lien</button>
+            </form>
+
+        </div>
+        }
+    </div>
+</div>

@@ -1,1 +1,41 @@
+@use '@angular/material' as mat;
+@include mat.core();
+
+$front-theme: mat.define-theme((color: (theme-type: light,
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      density: (scale: 0,
+      )));
+
+:root {
+  @include mat.all-component-themes($front-theme);
+}
+
+// Comment out the line below if you want to use the pre-defined typography utility classes.
+// For more information: https://material.angular.io/guide/typography#using-typography-styles-in-your-application.
+// @include mat.typography-hierarchy($front-theme);
+
+// Comment out the line below if you want to use the deprecated `color` inputs.
+// @include mat.color-variants-backwards-compatibility($front-theme);
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Poppins", sans-serif;
+}
+
+.primary-button {
+  color: white !important;
+  background-color: #5F7ADB !important;
+}
+
+.secondary-button {
+  color: #5F7ADB !important;
+  background-color: whitesmoke !important;
+}

@@ -1,0 +1,83 @@
+<div id="inscription-container">
+    <div id="texte-container">
+        <div>
+            <h1>{{ 'content de vous revoir ! ' | uppercase }}</h1>
+            <h3>Incrivez-vous et gardez le contrôle de vos examens.</h3>
+            <p>Déjà un compte ?</p>
+            <button mat-raised-button routerLink="/login" class="secondary-button">Se connecter</button>
+        </div>
+    </div>
+    <img id="logo-login" src="../../assets/image/logo-white-version.png" alt="">
+    <div id="form-inscription-container">
+        <form [formGroup]="signinForm" id="inscription-form">
+            <div class="titleForm">
+                <h1>{{'Inscrivez-vous'| uppercase}}</h1>
+                <div class="point"></div>
+            </div>
+            <div class="groupName">
+                <mat-form-field class="field firstname">
+                    <mat-label>Prénom</mat-label>
+                    <input matInput type="text" formControlName="firstname">
+                    <button *ngIf="signinForm.get('firstname')?.value" matSuffix mat-icon-button aria-label="Clear"
+                        (click)="resetValueOnClik('firstname')">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    @if(errorMessage.firstname){
+                    <mat-error>{{errorMessage.firstname}}</mat-error>
+                    }
+                </mat-form-field>
+                <mat-form-field class="field lastname">
+                    <mat-label>Nom</mat-label>
+                    <input matInput type="text" formControlName="lastname">
+                    <button *ngIf="signinForm.get('lastname')?.value" matSuffix mat-icon-button aria-label="Clear"
+                        (click)="resetValueOnClik('lastname')">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    @if(errorMessage.lastname){
+                    <mat-error>{{errorMessage.lastname}}</mat-error>
+                    }
+                </mat-form-field>
+            </div>
+            <mat-form-field class="field mail">
+                <mat-label>Email</mat-label>
+                <input matInput type="mail" formControlName="mail">
+                <button *ngIf="signinForm.get('mail')?.value" matSuffix mat-icon-button aria-label="Clear"
+                    (click)="resetValueOnClik('mail')">
+                    <mat-icon>close</mat-icon>
+                </button>
+                @if(errorMessage.mail){
+                <mat-error>{{errorMessage.mail}}</mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field class="field password">
+                <mat-label>Mot de passe</mat-label>
+                <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
+                <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+                    <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
+                <button *ngIf="signinForm.get('password')?.value" matSuffix mat-icon-button aria-label="Clear"
+                    (click)="resetValueOnClik('password')">
+                    <mat-icon>close</mat-icon>
+                </button>
+                @if(errorMessage.password){
+                <mat-error>{{errorMessage.password}}</mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field class="field password">
+                <mat-label>Confirmer le mot de passe</mat-label>
+                <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="confirmPassword">
+                <button mat-icon-button matSuffix (click)="toggleConfirmPasswordVisibility()">
+                    <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
+                <button *ngIf="signinForm.get('confirmPassword')?.value" matSuffix mat-icon-button aria-label="Clear"
+                    (click)="resetValueOnClik('confirmPassword')">
+                    <mat-icon>close</mat-icon>
+                </button>
+                @if(errorMessage.confirmPassword){
+                <mat-error>{{errorMessage.confirmPassword}}</mat-error>
+                }
+            </mat-form-field>
+            <button mat-raised-button class="primary-button submit-button" (click)="validateForm()">S'inscrire</button>
+        </form>
+    </div>
+</div>
