@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { MaterialModule } from '../material.module';
 import { CommonModule } from '@angular/common';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
   forgottenPasswordForm!: FormGroup
   hidePassword: boolean = true;
   isPasswordForgotten: boolean = false
-  constructor(private fb: FormBuilder, private router: Router) { }
+  constructor(private fb: FormBuilder, private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
     this.createLoginForm()
@@ -43,24 +44,24 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  validateForm() {
+  validateLoginForm() {
     if (this.loginForm.valid) {
-      const formData = this.getFormData();
-      // this.userService.login(formData).subscribe(
-      //   response => {
-      //     console.log('Logged in successfully:', response);
-      //     localStorage.setItem('authToken', response.token);
-      //     localStorage.setItem('user', JSON.stringify(response.user));
-      //     this.router.navigate(['/dashboard'])
-      //   },
-      //   error => {
-      //     console.error('Error logging in:', error);
-      //   }
-      // );
+      const formData = this.getLoginFormData();
+      this.userService.login(formData).subscribe(
+        response => {
+          console.log('Logged in successfully:', response);
+          localStorage.setItem('authToken', response.token);
+          localStorage.setItem('user', JSON.stringify(response.user));
+          this.router.navigate(['/inscription'])
+        },
+        error => {
+          console.error('Error logging in:', error);
+        }
+      );
     }
   }
 
-  getFormData() {
+  getLoginFormData() {
     return {
       mail: this.loginForm.get('mail')?.value,
       password: this.loginForm.get('password')?.value,
@@ -72,4 +73,8 @@ export class LoginComponent implements OnInit {
     this.createForgottenPasswordForm()
   }
 
+  sendMailResetPassword() {
+    const email = this.forgottenPasswordForm.get('mail')?.value
+    console.log(email)
+  }
 }

@@ -39,7 +39,7 @@
                     }
                 </mat-form-field>
                 <p id="forget-password" (click)="onClickChangeForgottenPassword()">Mot de passe oublié ?</p>
-                <button mat-raised-button class="submitButton primary-button" (click)="validateForm()">Se
+                <button mat-raised-button class="submitButton primary-button" (click)="validateLoginForm()">Se
                     connecter</button>
             </form>
         </div>
@@ -63,7 +63,8 @@
                     }
                 </mat-form-field>
 
-                <button mat-raised-button class="submitButton primary-button" (click)="validateForm()">Envoyer le
+                <button mat-raised-button class="submitButton primary-button" (click)="sendMailResetPassword()">Envoyer
+                    le
                     lien</button>
             </form>
 

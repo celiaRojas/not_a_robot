@@ -3,6 +3,7 @@ import { MaterialModule } from '../material.module';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-inscription',
@@ -16,7 +17,7 @@ export class InscriptionComponent implements OnInit {
   hidePassword: boolean = true;
   hideConfirmPassword: boolean = true;
   errorMessage: any = [];
-  constructor(private fb: FormBuilder, private router: Router) { }
+  constructor(private fb: FormBuilder, private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
     this.createForm()
@@ -46,15 +47,15 @@ export class InscriptionComponent implements OnInit {
   validateForm() {
     if (this.signinForm.valid) {
       const formData = this.getFormData();
-      // this.userService.signin(formData).subscribe(
-      //   response => {
-      //     console.log('signin  successfully:', response);
-      //     this.router.navigate(['/dashboard'])
-      //   },
-      //   error => {
-      //     console.error('Error signin :', error);
-      //   }
-      // );
+      this.userService.signin(formData).subscribe(
+        response => {
+          console.log('signin  successfully:', response);
+          this.router.navigate(['/login'])
+        },
+        error => {
+          console.error('Error signin :', error);
+        }
+      );
     } else {
       this.getFormErrors(this.signinForm)
       console.log(this.errorMessage)
